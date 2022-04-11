@@ -11,9 +11,8 @@ app.use(cookieParser());
 
 const port = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-    res.json({ msg: "hello" });
-});
+// Routes
+app.use("/api", require("./routes/authRouter"));
 
 const URI = process.env.MONGO_URL;
 mongoose.connect(
