@@ -32,6 +32,16 @@ code {
     margin: auto;
 }
 
+img {
+    object-fit: cover;
+}
+
+.avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
 /* AUTH */
 @import url("./styles/auth.css");
 
@@ -40,6 +50,9 @@ code {
 
 /* TOAST */
 @import url("./styles/toast.css");
+
+/* Header */
+@import url("./styles/header.css");
 
 /* Register */
 @import url("./styles/register.css");

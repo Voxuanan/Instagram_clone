@@ -52,3 +52,13 @@ export const register = (data) => async (dispatch) => {
         dispatch({ type: GLOBALTYPES.ALERT, payload: { error: error.response.data.msg } });
     }
 };
+
+export const logout = () => async (dispatch) => {
+    try {
+        localStorage.removeItem("firstLogin");
+        await postDataAPI("logout");
+        window.location.href = "/";
+    } catch (error) {
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { error: error.response.data.msg } });
+    }
+};
