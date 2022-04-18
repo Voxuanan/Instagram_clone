@@ -31,7 +31,6 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(userData.cf_password);
         dispatch(register(userData));
     };
 
@@ -49,18 +48,7 @@ const Register = () => {
                         value={fullname}
                         onChange={handleChangeInput}
                     />
-                    {alert.fullname && (
-                        <div
-                            style={{
-                                width: "100%",
-                                marginTop: "0.25rem",
-                                fontSize: "80%",
-                                color: "#dc3545",
-                            }}
-                        >
-                            {alert.fullname}
-                        </div>
-                    )}
+                    {alert.fullname && <div className="invalid_feedback">{alert.fullname}</div>}
                 </div>
                 <div className="form-group">
                     <label htmlFor="username">UserName</label>
@@ -72,18 +60,7 @@ const Register = () => {
                         onChange={handleChangeInput}
                         className={alert.username ? "invalid_input form-control" : "form-control"}
                     />
-                    {alert.username && (
-                        <div
-                            style={{
-                                width: "100%",
-                                marginTop: "0.25rem",
-                                fontSize: "80%",
-                                color: "#dc3545",
-                            }}
-                        >
-                            {alert.username}
-                        </div>
-                    )}
+                    {alert.username && <div className="invalid_feedback">{alert.username}</div>}
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Email address</label>
@@ -95,18 +72,7 @@ const Register = () => {
                         value={email}
                         onChange={handleChangeInput}
                     />
-                    {alert.email && (
-                        <div
-                            style={{
-                                width: "100%",
-                                marginTop: "0.25rem",
-                                fontSize: "80%",
-                                color: "#dc3545",
-                            }}
-                        >
-                            {alert.email}
-                        </div>
-                    )}
+                    {alert.email && <div className="invalid_feedback">{alert.email}</div>}
                     <small id="emailHelp" className="form-text text-muted">
                         We'll never share your email with anyone else.
                     </small>
@@ -129,18 +95,7 @@ const Register = () => {
                                 {typePassword ? "Hide" : "Show"}
                             </small>
                         </div>
-                        {alert.password && (
-                            <div
-                                style={{
-                                    width: "100%",
-                                    marginTop: "0.25rem",
-                                    fontSize: "80%",
-                                    color: "#dc3545",
-                                }}
-                            >
-                                {alert.password}
-                            </div>
-                        )}
+                        {alert.password && <div className="invalid_feedback">{alert.password}</div>}
                     </div>
                 </div>
                 <div className="form-group">
@@ -164,16 +119,7 @@ const Register = () => {
                             </small>
                         </div>
                         {alert.cf_password && (
-                            <div
-                                style={{
-                                    width: "100%",
-                                    marginTop: "0.25rem",
-                                    fontSize: "80%",
-                                    color: "#dc3545",
-                                }}
-                            >
-                                {alert.cf_password}
-                            </div>
+                            <div className="invalid_feedback">{alert.cf_password}</div>
                         )}
                     </div>
                 </div>
@@ -219,11 +165,7 @@ const Register = () => {
                         </label>
                     </div>
                 </div>
-                <button
-                    type="submit"
-                    className="btn btn-primary w-100"
-                    // disabled={email && password ? false : true}
-                >
+                <button type="submit" className="btn btn-primary w-100">
                     Register
                 </button>
                 <p className="my-2">
