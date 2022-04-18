@@ -4,7 +4,7 @@ import PageRender from "./PageRender";
 import Home from "./pages/home";
 import Register from "./pages/register";
 import Login from "./pages/login";
-import Notify from "./components/notify/Notify";
+import Alert from "./components/alert/Alert";
 import { useSelector, useDispatch } from "react-redux";
 import { refreshToken } from "./redux/actions/authAction";
 
@@ -20,7 +20,7 @@ function App() {
             <div className="App">
                 <div className="main">
                     <BrowserRouter>
-                        <Notify />
+                        <Alert />
                         <Routes>
                             <Route exact path="/" element={auth.token ? <Home /> : <Login />} />
                             <Route exact path="/:page" element={<PageRender />} />
