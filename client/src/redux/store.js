@@ -8,23 +8,24 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import rootReducer from "./reducers/index";
 
-const persistConfig = {
-    key: "redux",
-    storage,
-};
+// const persistConfig = {
+//     key: "redux",
+//     storage,
+// };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));
+// const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
-const persistor = persistStore(store);
+// const persistor = persistStore(store);
 
 const DataProvider = ({ children }) => {
     return (
         <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                {children}
-            </PersistGate>
+            {/* <PersistGate loading={null} persistor={persistor}> */}
+            {children}
+            {/* </PersistGate> */}
         </Provider>
     );
 };

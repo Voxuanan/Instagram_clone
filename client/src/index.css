@@ -40,3 +40,6 @@ code {
 
 /* TOAST */
 @import url("./styles/toast.css");
+
+/* Register */
+@import url("./styles/register.css");
