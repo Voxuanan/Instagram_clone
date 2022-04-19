@@ -36,23 +36,20 @@ img {
     object-fit: cover;
 }
 
-.avatar {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-}
-
 /* AUTH */
-@import url("./styles/auth.css");
+@import url("./auth.css");
 
 /* LOADING */
-@import url("./styles/loading.css");
+@import url("./loading.css");
 
 /* TOAST */
-@import url("./styles/toast.css");
+@import url("./toast.css");
+
+/* Avatar */
+@import url("./avatar.css");
 
 /* Header */
-@import url("./styles/header.css");
+@import url("./header.css");
 
 /* Register */
-@import url("./styles/register.css");
+@import url("./register.css");

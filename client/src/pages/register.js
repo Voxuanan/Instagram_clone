@@ -84,7 +84,9 @@ const Register = () => {
                             <input
                                 type={typePassword ? "text" : "password"}
                                 className={
-                                    alert.password ? "invalid_input form-control" : "form-control"
+                                    alert.password
+                                        ? "invalid_input_no_logo form-control"
+                                        : "form-control"
                                 }
                                 id="exampleInputPassword1"
                                 name="password"
@@ -108,7 +110,7 @@ const Register = () => {
                                 name="cf_password"
                                 className={
                                     alert.cf_password
-                                        ? "invalid_input form-control"
+                                        ? "invalid_input_no_logo form-control"
                                         : "form-control"
                                 }
                                 value={cf_password}

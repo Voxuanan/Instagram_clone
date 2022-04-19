@@ -1,0 +1,78 @@
+.header {
+    width: 100%;
+    min-height: 70px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: #ffffff;
+    border: 1px solid rgb(0, 0, 0, 0.125);
+}
+.header .navbar {
+    width: 100%;
+    height: 100%;
+}
+.header .logo h1 {
+    font-size: 2rem;
+}
+
+/* ----------- Header Menu ---------- */
+
+.header .menu .material-icons {
+    font-size: 30px;
+}
+.header .menu .dropdown-menu {
+    position: absolute;
+    left: inherit;
+    right: 0;
+}
+.header .menu label {
+    cursor: pointer;
+}
+
+/* ---------- Header Search -------- */
+.header .search_form {
+    position: relative;
+}
+.header .search_form #search {
+    background: #bcc2ce;
+    color: black;
+    border: 1px solid #bcc2ce;
+    min-width: 250px;
+    width: 100%;
+    outline: none;
+    text-indent: 8px;
+    border-radius: 8px;
+    height: 36px;
+}
+.header .search_form .search_icon {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -55%);
+    font-size: 20px;
+    pointer-events: none;
+}
+.header .search_form .search_icon .material-icons {
+    font-size: 24px;
+    transform: translateY(6px);
+}
+.header .search_form .close_search {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-weight: 900;
+    color: crimson;
+}
+.header .search_form .users {
+    position: absolute;
+    width: 100%;
+    min-width: 350px;
+    background: #fafafa;
+    max-height: calc(100vh - 150px);
+    overflow: auto;
+    margin-top: 5px;
+    left: -50px;
+    border-radius: 10px;
+}
