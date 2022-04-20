@@ -4,18 +4,24 @@ import { getDataAPI } from "../../utils/fetchData";
 import { GLOBALTYPES } from "../../redux/actions/globalType";
 import { Link } from "react-router-dom";
 import UserCard from "../UserCard";
+import LoadIcon from "../../images/loading.gif";
 
 const Search = () => {
     const [search, setSearch] = useState("");
     const [users, setUsers] = useState([]);
+    const [load, setLoad] = useState(false);
 
     const { auth } = useSelector((state) => state);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (search && auth.token) {
+            setLoad(true);
             getDataAPI(`search?username=${search}`, auth.token)
-                .then((res) => setUsers(res.data.users))
+                .then((res) => {
+                    setUsers(res.data.users);
+                    setLoad(false);
+                })
                 .catch((err) => {
                     dispatch({ type: GLOBALTYPES.ALERT, payload: { error: err.response.message } });
                 });
@@ -34,7 +40,7 @@ const Search = () => {
     };
 
     return (
-        <form className="search_form">
+        <form className="search_form" onSubmit={(e) => e.preventDefault()}>
             <input
                 type="text"
                 id="search"
@@ -46,18 +52,20 @@ const Search = () => {
                 <span className="material-icons">search</span>
                 <span>Search</span>
             </div>
-            <div
-                className="close_search"
-                onClick={handleClose}
-                style={search.length === 0 ? { opacity: 0 } : { opacity: 1 }}
-            >
-                &times;
-            </div>
+            {load || (
+                <div
+                    className="close_search"
+                    onClick={handleClose}
+                    style={search.length === 0 ? { opacity: 0 } : { opacity: 1 }}
+                >
+                    &times;
+                </div>
+            )}
+            {load && <img src={LoadIcon} alt="loading" className="loading" />}
+
             <div className="users">
                 {users.map((user) => (
-                    <Link key={user._id} to={`/profile/${user._id}`}>
-                        <UserCard user={user} />
-                    </Link>
+                    <UserCard user={user} key={user._id} handleClose={handleClose} />
                 ))}
             </div>
         </form>

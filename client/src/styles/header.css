@@ -60,7 +60,7 @@
 .header .search_form .close_search {
     position: absolute;
     top: 5px;
-    right: 10px;
+    right: 15px;
     cursor: pointer;
     font-weight: 900;
     color: crimson;
@@ -75,4 +75,13 @@
     margin-top: 5px;
     left: -50px;
     border-radius: 10px;
+}
+
+.header .search_form .loading {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
 }

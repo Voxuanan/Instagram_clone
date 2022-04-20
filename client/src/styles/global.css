@@ -53,3 +53,6 @@ img {
 
 /* Register */
 @import url("./register.css");
+
+/* Profile */
+@import url("./profile.css");
