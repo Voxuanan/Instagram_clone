@@ -26,6 +26,11 @@ code {
     background: white;
 }
 
+p {
+    padding: 0;
+    margin: 0;
+}
+
 .main {
     max-width: 1000px;
     width: 100%;

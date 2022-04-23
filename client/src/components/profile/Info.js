@@ -3,9 +3,12 @@ import { useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Avatar from "../Avatar";
 import { getProfileUser } from "../../redux/actions/profileAction";
+import EditProfile from "./EditProfile";
+import FollowBtn from "./FollowBtn";
 
 const Info = () => {
     const [userData, setUserData] = useState([]);
+    const [onEdit, setOnEdit] = useState(false);
 
     const { id } = useParams();
     const { auth, profile } = useSelector((state) => state);
@@ -14,7 +17,6 @@ const Info = () => {
     useEffect(() => {
         if (id === auth.user._id) {
             setUserData([auth.user]);
-            console.log(auth.user);
         } else {
             dispatch(getProfileUser({ users: profile.users, id, auth }));
             const newData = profile.users.filter((user) => user._id === id);
@@ -32,7 +34,16 @@ const Info = () => {
                     <div className="info_content">
                         <div className="info_content_title">
                             <h2>{user.username}</h2>
-                            <button className="btn btn-outline-info">Edit profile</button>
+                            {auth.user._id == user._id ? (
+                                <button
+                                    className="btn btn-outline-info"
+                                    onClick={() => setOnEdit(true)}
+                                >
+                                    Edit profile
+                                </button>
+                            ) : (
+                                <FollowBtn />
+                            )}
                         </div>
 
                         <div className="follow_btn">
@@ -40,7 +51,7 @@ const Info = () => {
                             <span className="mr-4">{user.following.length} Following</span>
                         </div>
                         <p>
-                            {user.fullname} {user.mobile}
+                            {user.fullname} <span className="text-warning">{user.mobile}</span>
                         </p>
                         <p className="mr-0">{user.address}</p>
                         <p>{user.email}</p>
@@ -49,6 +60,8 @@ const Info = () => {
                         </a>
                         <p>{user.story}</p>
                     </div>
+
+                    {onEdit && <EditProfile setOnEdit={setOnEdit} />}
                 </div>
             ))}
         </div>

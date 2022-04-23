@@ -21,7 +21,6 @@ const Valid = ({ fullname, username, email, password, cf_password, gender }) => 
     }
 
     if (!password) {
-        console.log(password);
         err.password = "Please add your password.";
     } else if (password.length < 6) {
         err.password = "Password must be at least 6 characters long.";
