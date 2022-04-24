@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { checkImage } from "../../utils/imageUpload";
-import { GLOBALTYPES } from "../../redux/actions/globalType";
+import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 import { updateProfileUser } from "../../redux/actions/profileAction";
 
 const EditProfile = ({ setOnEdit }) => {
@@ -43,9 +43,9 @@ const EditProfile = ({ setOnEdit }) => {
 
     return (
         <div className="edit-profile">
-            <button className="btn btn-danger btn_close" onClick={() => setOnEdit(false)}>
-                Close
-            </button>
+            <span className="btn_close" onClick={() => setOnEdit(false)}>
+                &times;
+            </span>
 
             <form onSubmit={handleSubmit}>
                 <div className="info_avatar">

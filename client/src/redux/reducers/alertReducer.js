@@ -1,4 +1,4 @@
-import { GLOBALTYPES } from "../actions/globalType";
+import { GLOBALTYPES } from "../actions/globalTypes";
 
 const initialState = {};
 const alertReducer = (state = initialState, action) => {

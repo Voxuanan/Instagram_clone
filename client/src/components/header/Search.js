@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getDataAPI } from "../../utils/fetchData";
-import { GLOBALTYPES } from "../../redux/actions/globalType";
+import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 import { Link } from "react-router-dom";
 import UserCard from "../UserCard";
 import LoadIcon from "../../images/loading.gif";

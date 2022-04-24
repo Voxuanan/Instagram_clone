@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Loading from "./Loading";
 import Toast from "./Toast";
-import { GLOBALTYPES } from "../../redux/actions/globalType";
+import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 
 const Alert = () => {
     const { alert } = useSelector((state) => state);
