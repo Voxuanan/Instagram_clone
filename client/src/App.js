@@ -7,11 +7,12 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import Alert from "./components/alert/Alert";
 import Header from "./components/header/Header";
+import StatusModal from "./components/StatusModal";
 import { useSelector, useDispatch } from "react-redux";
 import { refreshToken } from "./redux/actions/authAction";
 
 function App() {
-    const { auth } = useSelector((state) => state);
+    const { auth, status } = useSelector((state) => state);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(refreshToken());
@@ -24,6 +25,7 @@ function App() {
                     <BrowserRouter>
                         <Alert />
                         {auth.token && <Header />}
+                        {status && <StatusModal />}
                         <Routes>
                             <Route exact path="/" element={auth.token ? <Home /> : <Login />} />
                             <Route exact path="/login" element={<Login />} />

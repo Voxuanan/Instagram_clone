@@ -29,10 +29,11 @@ const EditProfile = ({ setOnEdit }) => {
     };
 
     const changeAvatar = (e) => {
-        const file = e.target.files[0];
-        const err = checkImage(file);
+        const files = [e.target.files[0]];
+        console.log(files);
+        const { err } = checkImage(files);
         if (err) return dispatch({ type: GLOBALTYPES.ALERT, payload: { error: err } });
-        setAvatar(file);
+        setAvatar(files[0]);
     };
 
     const handleSubmit = (e) => {
