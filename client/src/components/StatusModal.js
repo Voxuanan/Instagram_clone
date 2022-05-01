@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { GLOBALTYPES } from "../redux/actions/globalTypes";
 import { checkImage } from "../utils/imageUpload";
+import { createPost } from "../redux/actions/postAction";
 import UserCard from "./UserCard";
 
 const StatusModal = () => {
@@ -58,9 +59,18 @@ const StatusModal = () => {
         tracks.stop();
         setStream(false);
     };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(createPost({ content, images, auth }));
+        setContent("");
+        setImages([]);
+        if (tracks) tracks.stop();
+        dispatch({ type: GLOBALTYPES.STATUS, payload: false });
+    };
     return (
         <div className="status_modal">
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="status_header">
                     <h5 className="m-0  ">Create Post</h5>
                     <span onClick={() => dispatch({ type: GLOBALTYPES.STATUS, payload: false })}>
@@ -125,7 +135,9 @@ const StatusModal = () => {
                     </div>
                 </div>
                 <div className="status_footer my-2">
-                    <button className="btn btn-secondary">Post</button>
+                    <button className="btn btn-secondary " type="submit">
+                        Post
+                    </button>
                 </div>
             </form>
         </div>

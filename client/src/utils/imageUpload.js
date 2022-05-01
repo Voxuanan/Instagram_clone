@@ -15,7 +15,12 @@ export const imageUpload = async (images) => {
     let imgArr = [];
     for (const image of images) {
         const formData = new FormData();
-        formData.append("file", image);
+        if (image.camera) {
+            formData.append("file", image.camera);
+        } else {
+            formData.append("file", image);
+        }
+
         formData.append("upload_preset", "pkvtmnjj");
         formData.append("cloud_name", "dgcuiishb");
         const res = await fetch("https://api.cloudinary.com/v1_1/dgcuiishb/upload", {
@@ -25,5 +30,6 @@ export const imageUpload = async (images) => {
         const data = await res.json();
         imgArr.push({ public_id: data.public_id, url: data.secure_url });
     }
+
     return imgArr;
 };

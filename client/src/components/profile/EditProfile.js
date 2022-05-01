@@ -30,7 +30,6 @@ const EditProfile = ({ setOnEdit }) => {
 
     const changeAvatar = (e) => {
         const files = [e.target.files[0]];
-        console.log(files);
         const { err } = checkImage(files);
         if (err) return dispatch({ type: GLOBALTYPES.ALERT, payload: { error: err } });
         setAvatar(files[0]);
