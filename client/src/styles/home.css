@@ -1,9 +1,9 @@
 /* Status */
 .status {
     background-color: white;
-    border: 1px solid #ddd;
     padding: 20px;
     border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .status .statusBtn {
@@ -18,4 +18,15 @@
 
 .status .statusBtn:hover {
     background: #ddd;
+}
+
+/* Posts */
+.posts .card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.posts .card-header .dropdown-menu {
+    position: absolute;
+    right: 0;
+    left: inherit !important;
 }
