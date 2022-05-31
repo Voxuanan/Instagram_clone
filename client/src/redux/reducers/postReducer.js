@@ -12,8 +12,14 @@ const postReducer = (state = initialState, action) => {
         case POST_TYPES.CREATE_POST:
             return {
                 ...state,
-                posts: [...state.posts, action.payload],
+                posts: [action.payload, ...state.posts],
             };
+        case POST_TYPES.UPDATE_POST:
+            return {
+                ...state,
+                posts: EditData(state.posts, action.payload._id, action.payload),
+            };
+
         case POST_TYPES.LOADING_POST:
             return {
                 ...state,

@@ -2,10 +2,14 @@ import React from "react";
 import Avatar from "../../Avatar";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { GLOBALTYPES } from "../../../redux/actions/globalTypes";
 const CardHeader = ({ post }) => {
     const { auth } = useSelector((state) => state);
+    const dispatch = useDispatch();
+    const handleEditPost = () => {
+        dispatch({ type: GLOBALTYPES.STATUS, payload: { ...post, onEdit: true } });
+    };
     return (
         <div className="card-header">
             <div className="d-flex justify-content-between">
@@ -25,7 +29,7 @@ const CardHeader = ({ post }) => {
                         <div className="dropdown-menu">
                             {auth.user._id === post.user._id && (
                                 <>
-                                    <div className="dropdown-item">
+                                    <div className="dropdown-item" onClick={handleEditPost}>
                                         <span className="material-icons">create</span> Edit post
                                     </div>
                                     <div className="dropdown-item">

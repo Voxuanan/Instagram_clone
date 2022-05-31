@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { GLOBALTYPES } from "../redux/actions/globalTypes";
 import { checkImage } from "../utils/imageUpload";
-import { createPost } from "../redux/actions/postAction";
+import { createPost, updatePost } from "../redux/actions/postAction";
 import UserCard from "./UserCard";
 
 const StatusModal = () => {
@@ -13,8 +13,15 @@ const StatusModal = () => {
     const refCanvas = useRef();
     const [tracks, setTracks] = useState("");
 
-    const { auth, theme } = useSelector((state) => state);
+    const { auth, theme, status } = useSelector((state) => state);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (status.onEdit) {
+            setContent(status.content);
+            setImages(status.images);
+        }
+    }, [status]);
 
     const handleImageChange = (e) => {
         const files = [...e.target.files];
@@ -62,7 +69,13 @@ const StatusModal = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(createPost({ content, images, auth }));
+
+        if (status.onEdit) {
+            dispatch(updatePost({ content, images, auth, status }));
+        } else {
+            dispatch(createPost({ content, images, auth }));
+        }
+
         setContent("");
         setImages([]);
         if (tracks) tracks.stop();
@@ -89,7 +102,13 @@ const StatusModal = () => {
                         {images.map((img, i) => (
                             <div key={i} className="file_images">
                                 <img
-                                    src={img.camera ? img.camera : URL.createObjectURL(img)}
+                                    src={
+                                        img.camera
+                                            ? img.camera
+                                            : img.url
+                                            ? img.url
+                                            : URL.createObjectURL(img)
+                                    }
                                     alt="image"
                                     className="img-thumbnail rounded"
                                     style={{ filter: theme ? "invert(1)" : "invert(0)" }}

@@ -16,7 +16,7 @@ const CardFooter = ({ post }) => {
                 <i className="far fa-bookmark" />
             </div>
             <div className="d-flex justify-content-between">
-                <h6 style={{ padding: " 0 25px", cursor: "pointer" }}>{post.likes.length}</h6>
+                <h6 style={{ padding: " 0 34px", cursor: "pointer" }}>{post.likes.length}</h6>
                 <h6 style={{ padding: " 0 25px", cursor: "pointer" }}>
                     {post.comments.length} comments
                 </h6>
