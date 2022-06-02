@@ -8,7 +8,9 @@ const Header = () => {
         <div className="header">
             <nav className="navbar navbar-expand-lg navbar-light justify-content-between align-middle">
                 <Link className="navbar-brand" to="/">
-                    <h1 className="navbar-brand">Instagram Clone</h1>
+                    <h1 className="navbar-brand" onClick={() => window.scrollTo({ top: 0 })}>
+                        Instagram Clone
+                    </h1>
                 </Link>
                 <Search />
                 <Menu />

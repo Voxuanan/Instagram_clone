@@ -44,7 +44,7 @@ export const updatePost =
             dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
             if (imgNewUrl.length > 0) media = await imageUpload(imgNewUrl);
             const res = await patchDataAPI(
-                `posts/${status._id}`,
+                `post/${status._id}`,
                 { content, images: [...imgOldUrl, ...media] },
                 auth.token
             );
@@ -65,3 +65,33 @@ export const getPosts = (token) => async (dispatch) => {
         dispatch({ type: GLOBALTYPES.ALERT, payload: { error: error.response.data.msg } });
     }
 };
+
+export const LikePost =
+    ({ post, auth }) =>
+    async (dispatch) => {
+        try {
+            let newPost = post;
+            if (!newPost.likes.find((like) => like._id === auth.user._id)) {
+                newPost = { ...post, likes: [...post.likes, auth.user] };
+            }
+            await patchDataAPI(`post/${post._id}/like`, null, auth.token);
+            dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost });
+        } catch (error) {
+            dispatch({ type: GLOBALTYPES.ALERT, payload: { error: error.response.data.msg } });
+        }
+    };
+
+export const UnlikePost =
+    ({ post, auth }) =>
+    async (dispatch) => {
+        try {
+            let newPost = {
+                ...post,
+                likes: post.likes.filter((like) => like._id !== auth.user._id),
+            };
+            await patchDataAPI(`post/${post._id}/unlike`, null, auth.token);
+            dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost });
+        } catch (error) {
+            dispatch({ type: GLOBALTYPES.ALERT, payload: { error: error.response.data.msg } });
+        }
+    };
