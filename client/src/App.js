@@ -13,7 +13,7 @@ import { refreshToken } from "./redux/actions/authAction";
 import { getPosts } from "./redux/actions/postAction";
 
 function App() {
-    const { auth, status } = useSelector((state) => state);
+    const { auth, status, modal } = useSelector((state) => state);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(refreshToken());
