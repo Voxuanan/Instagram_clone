@@ -67,3 +67,6 @@ img {
 
 /* Status Modal */
 @import url("./statusModal.css");
+
+/* Comment */
+@import url("./comment.css");

@@ -20,6 +20,13 @@ const postCtrl = {
         try {
             const posts = await Posts.find({ user: [...req.user.following, req.user._id] })
                 .populate("user likes", "avatar username fullname")
+                .populate({
+                    path: "comments",
+                    populate: {
+                        path: "user likes",
+                        select: "-password",
+                    },
+                })
                 .sort({
                     createdAt: -1,
                 });
