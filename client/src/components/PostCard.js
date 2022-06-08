@@ -11,7 +11,7 @@ const Post = ({ post }) => {
             <CardHeader post={post} />
             <CardBody post={post} />
             <CardFooter post={post} />
-            <Comments />
+            <Comments post={post} />
             <InputComment post={post} />
         </div>
     );
