@@ -39,3 +39,19 @@
     color: rgb(17, 17, 140);
     cursor: pointer;
 }
+
+.comment_card .comment_content .nav-item {
+    cursor: pointer;
+    opacity: 0;
+}
+
+.comment_card .comment_content:hover .nav-item {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.comment_card .comment_content .dropdown-menu {
+    position: absolute;
+    right: 0;
+    left: inherit !important;
+}

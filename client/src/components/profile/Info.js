@@ -20,6 +20,8 @@ const Info = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        const data = profile.users.filter((user) => user._id === id);
+        console.log(data);
         if (id === auth.user._id) {
             setUserData([auth.user]);
         } else {
@@ -37,6 +39,7 @@ const Info = () => {
 
     return (
         <div className="info">
+            {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
             {userData.map((user) => (
                 <div className="info_container" key={user._id}>
                     <div className="info_avatar">

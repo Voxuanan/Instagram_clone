@@ -1,0 +1,1 @@
+useEffect render twice while using React.StrictMode in react 18 { in client/src/component/profile/Info.js while u search a new user and press F5 is caused issue}
