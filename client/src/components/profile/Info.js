@@ -20,8 +20,6 @@ const Info = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const data = profile.users.filter((user) => user._id === id);
-        console.log(data);
         if (id === auth.user._id) {
             setUserData([auth.user]);
         } else {

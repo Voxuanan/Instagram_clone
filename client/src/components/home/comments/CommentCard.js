@@ -5,12 +5,14 @@ import moment from "moment";
 import LikeButton from "../../LikeButton";
 import { useSelector, useDispatch } from "react-redux";
 import CommentMenu from "./CommentMenu";
+import { updateComment } from "../../../redux/actions/commentAction";
 
 const CommentCard = ({ comment, post }) => {
     const [content, setContent] = useState("");
     const [readMore, setReadMore] = useState(false);
     const [isLike, setIsLike] = useState(false);
     const [loadLike, setLoadLike] = useState(false);
+    const [onEdit, setOnEdit] = useState(false);
     const { auth } = useSelector((state) => state);
     const dispatch = useDispatch();
 
@@ -39,6 +41,15 @@ const CommentCard = ({ comment, post }) => {
         // setLoadLike(false);
     };
 
+    const handleUpdate = async () => {
+        if (comment.content != content) {
+            dispatch(updateComment({ comment, post, content, auth }));
+            setOnEdit(false);
+        } else {
+            setOnEdit(false);
+        }
+    };
+
     return (
         <div className="comment_card mt-3" style={styleCard}>
             <Link to={`profile/${comment.user._id}`} className="d-flex text-dark">
@@ -48,31 +59,57 @@ const CommentCard = ({ comment, post }) => {
 
             <div className="comment_content">
                 <div className="flex-fill">
-                    <div>
-                        <span>
-                            {content.length < 100
-                                ? content
-                                : readMore
-                                ? content + " "
-                                : content.slice(0, 100) + "..."}
-                        </span>
-                        {content.length >= 100 && (
-                            <span
-                                className="readMore"
-                                onClick={() => {
-                                    setReadMore(!readMore);
-                                }}
-                            >
-                                {readMore ? "Hide content" : "Read more"}
+                    {onEdit ? (
+                        <textarea
+                            row="5"
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                        ></textarea>
+                    ) : (
+                        <div>
+                            <span>
+                                {content.length < 100
+                                    ? content
+                                    : readMore
+                                    ? content + " "
+                                    : content.slice(0, 100) + "..."}
                             </span>
-                        )}
-                    </div>
+                            {content.length >= 100 && (
+                                <span
+                                    className="readMore"
+                                    onClick={() => {
+                                        setReadMore(!readMore);
+                                    }}
+                                >
+                                    {readMore ? "Hide content" : "Read more"}
+                                </span>
+                            )}
+                        </div>
+                    )}
+
                     <div style={{ cursor: "pointer" }}>
                         <small className="text-muted mr-3">
                             {moment(comment.createdAt).fromNow()}
                         </small>
                         <small className="text-muted mr-3">{comment.likes.length} likes</small>
-                        <small className="text-muted mr-3">reply</small>
+                        {onEdit ? (
+                            <>
+                                <small className="text-muted mr-3" onClick={handleUpdate}>
+                                    update
+                                </small>
+                                <small
+                                    className="text-muted mr-3"
+                                    onClick={() => {
+                                        setOnEdit(false);
+                                        setContent(comment.content);
+                                    }}
+                                >
+                                    cancel
+                                </small>
+                            </>
+                        ) : (
+                            <small className="text-muted mr-3">reply</small>
+                        )}
                     </div>
                 </div>
                 <div className="d-flex align-items-center" style={{ cursor: "pointer" }}>
@@ -81,7 +118,7 @@ const CommentCard = ({ comment, post }) => {
                         handleUnlike={handleUnlike}
                         handleLike={handleLike}
                     />
-                    <CommentMenu post={post} comment={comment} auth={auth} />
+                    <CommentMenu post={post} comment={comment} auth={auth} setOnEdit={setOnEdit} />
                 </div>
             </div>
         </div>

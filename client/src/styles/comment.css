@@ -55,3 +55,9 @@
     right: 0;
     left: inherit !important;
 }
+
+.comment_card .comment_content textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+}

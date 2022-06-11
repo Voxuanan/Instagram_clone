@@ -19,6 +19,20 @@ const commentCtrl = {
             return res.status(500).json({ msg: error.message });
         }
     },
+    updateComment: async (req, res) => {
+        try {
+            const { content } = req.body;
+            const comment = await Comments.findOneAndUpdate(
+                { _id: req.params.id, user: req.user._id },
+                { content }
+            );
+            if (!comment) return res.status(400).json({ msg: "Update comment fail!" });
+
+            res.json({ msg: "Update Success!" });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
 };
 
 module.exports = commentCtrl;
