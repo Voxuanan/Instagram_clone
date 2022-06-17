@@ -5,7 +5,7 @@ import moment from "moment";
 import LikeButton from "../../LikeButton";
 import { useSelector, useDispatch } from "react-redux";
 import CommentMenu from "./CommentMenu";
-import { updateComment } from "../../../redux/actions/commentAction";
+import { updateComment, likeComment, unlikeComment } from "../../../redux/actions/commentAction";
 
 const CommentCard = ({ comment, post }) => {
     const [content, setContent] = useState("");
@@ -23,22 +23,23 @@ const CommentCard = ({ comment, post }) => {
 
     useEffect(() => {
         setContent(comment.content);
-    }, [comment]);
+        if (comment.likes.find((like) => like._id === auth.user._id)) setIsLike(true);
+    }, [comment, auth.user._id]);
 
     const handleLike = async () => {
-        // if (loadLike) return;
-        // setLoadLike(true);
-        // await dispatch(LikePost({ post, auth }));
-        // setIsLike(true);
-        // setLoadLike(false);
+        if (loadLike) return;
+        setLoadLike(true);
+        await dispatch(likeComment({ comment, post, auth }));
+        setIsLike(true);
+        setLoadLike(false);
     };
 
     const handleUnlike = async () => {
-        // if (loadLike) return;
-        // setLoadLike(true);
-        // await dispatch(UnlikePost({ post, auth }));
-        // setIsLike(false);
-        // setLoadLike(false);
+        if (loadLike) return;
+        setLoadLike(true);
+        await dispatch(unlikeComment({ comment, post, auth }));
+        setIsLike(false);
+        setLoadLike(false);
     };
 
     const handleUpdate = async () => {

@@ -33,6 +33,39 @@ const commentCtrl = {
             return res.status(500).json({ msg: error.message });
         }
     },
+    likeComment: async (req, res) => {
+        try {
+            let comment = await Comments.findOne({ _id: req.params.id, likes: req.user._id });
+
+            if (comment) return res.status(400).json({ msg: "You already like this post!" });
+            comment = await Comments.findOneAndUpdate(
+                { _id: req.params.id },
+                {
+                    $addToSet: { likes: req.user._id },
+                },
+                { new: true }
+            );
+            res.json({ msg: "Liked Comment!", comment });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
+    unlikeComment: async (req, res) => {
+        try {
+            let comment = await Comments.find({ _id: req.params.id, likes: req.user._id });
+            if (!comment) return res.status(400).json({ msg: "You haven't like this post!" });
+            comment = await Comments.findOneAndUpdate(
+                { _id: req.params.id },
+                {
+                    $pull: { likes: req.user._id },
+                },
+                { new: true }
+            );
+            res.json({ msg: "Unliked Comment!", comment });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
 };
 
 module.exports = commentCtrl;
