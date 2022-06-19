@@ -6,13 +6,16 @@ import LikeButton from "../../LikeButton";
 import { useSelector, useDispatch } from "react-redux";
 import CommentMenu from "./CommentMenu";
 import { updateComment, likeComment, unlikeComment } from "../../../redux/actions/commentAction";
+import InputComment from "../InputComment";
 
-const CommentCard = ({ comment, post }) => {
+const CommentCard = ({ comment, post, commentId, children }) => {
     const [content, setContent] = useState("");
     const [readMore, setReadMore] = useState(false);
     const [isLike, setIsLike] = useState(false);
     const [loadLike, setLoadLike] = useState(false);
     const [onEdit, setOnEdit] = useState(false);
+    const [onReply, setOnReply] = useState(false);
+
     const { auth } = useSelector((state) => state);
     const dispatch = useDispatch();
 
@@ -23,6 +26,8 @@ const CommentCard = ({ comment, post }) => {
 
     useEffect(() => {
         setContent(comment.content);
+        setIsLike(false);
+        setOnReply(false);
         if (comment.likes.find((like) => like._id === auth.user._id)) setIsLike(true);
     }, [comment, auth.user._id]);
 
@@ -51,6 +56,11 @@ const CommentCard = ({ comment, post }) => {
         }
     };
 
+    const handleReply = async () => {
+        if (onReply) return setOnReply(false);
+        setOnReply({ ...comment, commentId });
+    };
+
     return (
         <div className="comment_card mt-3" style={styleCard}>
             <Link to={`profile/${comment.user._id}`} className="d-flex text-dark">
@@ -68,6 +78,11 @@ const CommentCard = ({ comment, post }) => {
                         ></textarea>
                     ) : (
                         <div>
+                            {comment.tag && comment.tag._id !== comment.user._id && (
+                                <Link to={`/profile/${comment.tag._id}`} className="mr-1">
+                                    @{comment.tag.username}
+                                </Link>
+                            )}
                             <span>
                                 {content.length < 100
                                     ? content
@@ -109,7 +124,9 @@ const CommentCard = ({ comment, post }) => {
                                 </small>
                             </>
                         ) : (
-                            <small className="text-muted mr-3">reply</small>
+                            <small className="text-muted mr-3" onClick={handleReply}>
+                                {onReply ? "cancel" : "reply"}
+                            </small>
                         )}
                     </div>
                 </div>
@@ -122,6 +139,15 @@ const CommentCard = ({ comment, post }) => {
                     <CommentMenu post={post} comment={comment} auth={auth} setOnEdit={setOnEdit} />
                 </div>
             </div>
+
+            {children}
+            {onReply && (
+                <InputComment post={post} onReply={onReply} setOnReply={setOnReply}>
+                    <Link to={`/profile/${onReply.user._id}`} className="mr-1">
+                        @{onReply.user.username}:
+                    </Link>
+                </InputComment>
+            )}
         </div>
     );
 };
